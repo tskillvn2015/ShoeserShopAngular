@@ -4,6 +4,7 @@ import { MainComponent } from './main.component';
 import { mainRoutes} from './main.route';
 import { Routes,RouterModule} from '@angular/router';
 import {AccountModule}from './account/account.module';
+import {HomeModule} from './home/home.module';
 
 
 
@@ -11,6 +12,8 @@ import {AccountModule}from './account/account.module';
   declarations: [MainComponent],
   imports: [
     CommonModule,
+    HomeModule,
+    AccountModule,
     RouterModule.forChild(mainRoutes)
   ]
 })
