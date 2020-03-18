@@ -5,6 +5,10 @@ import { mainRoutes} from './main.route';
 import { Routes,RouterModule} from '@angular/router';
 import {AccountModule}from './account/account.module';
 import {HomeModule} from './home/home.module';
+import {UtilityService} from '../core/services/utility.service';
+import {AuthenService} from '../core/services/authen.service';
+
+
 
 
 
@@ -15,6 +19,7 @@ import {HomeModule} from './home/home.module';
     HomeModule,
     AccountModule,
     RouterModule.forChild(mainRoutes)
-  ]
+  ],
+  providers: [UtilityService,AuthenService]
 })
 export class MainModule { }
