@@ -26,16 +26,16 @@ export class AuthenService {
       if (response['Code'] === '200') {
         var token = response['Content']['token'];
         var decoded = jwt_decode(token);
-        this.user ={
-          id:decoded.Id,
-          username:decoded.Username,
-          role:decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'],
-          token:token
+        this.user = {
+          id: decoded.Id,
+          username: decoded.Username,
+          role: decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'],
+          token: token
         };
-        if (this.user && this.user.token ) {
+        if (this.user && this.user.token) {
           localStorage.removeItem(SystemConstants.CURRENT_USER);
           localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(this.user));
-        }else{
+        } else {
           this._notificationService.printErrorMessage("token is not init");
         }
       } else {
@@ -60,7 +60,14 @@ export class AuthenService {
     let user: LoggedInUser;
     if (this.isUserAuthenticated) {
       var userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
-      user = new LoggedInUser(userData.id, userData.username, userData.role, userData.token);
+      user = {
+        id: userData.id,
+        username: userData.username,
+        role: userData.role,
+        token: userData.token
+      };
+      console.log(user);
+      return user;
     }
     return null;
   }
