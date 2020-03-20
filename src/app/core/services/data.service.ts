@@ -14,7 +14,10 @@ import { Observable, from } from 'rxjs';
 })
 export class DataService {
   private headers: HttpHeaders;
-  constructor(private _http: HttpClient, private _router: Router, private _authenService: AuthenService, private _notificationService : NotificationService, private _utilityService :UtilityService) { }
+  constructor(private _http: HttpClient, private _router: Router, private _authenService: AuthenService, private _notificationService : NotificationService
+    , private _utilityService :UtilityService) {
+      this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+     }
 
   get(uri: string) {
     this.headers.delete("Authorization");
@@ -43,7 +46,7 @@ export class DataService {
     return this._http.post(SystemConstants.BASE_API + uri, data, { headers: this.headers }).pipe(map(this.extractData));
   }
   private extractData(res: Response) {
-    let body = res.json();
+    let body = res;
     return body || {};
   }
 
