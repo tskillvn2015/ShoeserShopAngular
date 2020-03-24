@@ -10,9 +10,11 @@ import { MessageContstants } from '../../core/common/message.constants';
 })
 export class AccountComponent implements OnInit {
 
+
+
   @ViewChild('modalAddEdit') public modalAddEdit: ModalDirective;
   public pageIndex: number = 1;
-  public pageSize: number = 20;
+  public pageSize: number = 2;
   public pageDisplay: number = 10;
   public totalRow: number;
   public filter: string = '';
@@ -27,22 +29,24 @@ export class AccountComponent implements OnInit {
   loadData() {
     this._dataService.get('/api/accounts?Username=' + this.filter + '&PageIndex=' + this.pageIndex + '&PageSize=' + this.pageSize)
       .subscribe((response: any) => {
-        console.log(response);
         if (response.Code === '200') {
           this.users = response.Content.Items;
           this.pageIndex = response.Content.PageIndex;
           this.pageSize = response.Content.PageSize;
-          this.totalRow = response.Content.TotalRows;
+          this.totalRow = response.Content.TotalRecord;
         } else {
           this._notificationService.printErrorMessage(response['Code'] + ' : ' + response['Message']);
         }
       });
   }
-  loadRole(id: any) {
-    this._dataService.get('/api/appUser/detail/' + id)
+  loadUser(id: any) {
+    this._dataService.get('/api/account/detail?id=' + id)
       .subscribe((response: any) => {
-        this.entity = response;
-        console.log(this.entity);
+        if (response.Code === '200') {
+          this.entity = response.Content;
+        } else {
+          this._notificationService.printErrorMessage(response.Code + ' : ' + response.Message);
+        }
       });
   }
   pageChanged(event: any): void {
@@ -54,25 +58,36 @@ export class AccountComponent implements OnInit {
     this.modalAddEdit.show();
   }
   showEditModal(id: any) {
-    this.loadRole(id);
+    this.loadUser(id);
     this.modalAddEdit.show();
   }
   saveChange(valid: boolean) {
+    console.log(this.entity);
     if (valid) {
       if (this.entity.Id == undefined) {
-        this._dataService.post('/api/appUser/add', JSON.stringify(this.entity))
+        this._dataService.post('/api/account', JSON.stringify(this.entity))
           .subscribe((response: any) => {
-            this.loadData();
-            this.modalAddEdit.hide();
-            this._notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+            if (response.Code === '200') {
+              this.loadData();
+              this.modalAddEdit.hide();
+              this._notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+            } else {
+              this._notificationService.printErrorMessage(response.Code + ' : ' + response.Message);
+            }
+
           }, error => this._dataService.handleError(error));
       }
       else {
-        this._dataService.put('/api/appUser/update', JSON.stringify(this.entity))
+        console.log(this.entity);
+        this._dataService.put('/api/account', JSON.stringify(this.entity))
           .subscribe((response: any) => {
-            this.loadData();
-            this.modalAddEdit.hide();
-            this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+            if (response.Code === '200') {
+              this.loadData();
+              this.modalAddEdit.hide();
+              this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+            } else {
+              this._notificationService.printErrorMessage(response.Code + ' : ' + response.Message);
+            }
           }, error => this._dataService.handleError(error));
       }
     }
@@ -81,10 +96,16 @@ export class AccountComponent implements OnInit {
     this._notificationService.printConfirmationDialog(MessageContstants.CONFIRM_DELETE_MSG, () => this.deleteItemConfirm(id));
   }
   deleteItemConfirm(id: any) {
-    this._dataService.delete('/api/appUser/delete', 'id', id).subscribe((response: Response) => {
-      this._notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
-      this.loadData();
-    });
+
+    this._dataService.delete('/api/account', 'id', id).subscribe((response: any) => {
+      if (response.Code === '200') {
+        this.entity = response.Content;
+        this._notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
+        this.loadData();
+      } else {
+        this._notificationService.printErrorMessage(response.Code + ' : ' + response.Message);
+      }
+    }, error => this._dataService.handleError(error));
   }
 
 }

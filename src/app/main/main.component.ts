@@ -23,4 +23,11 @@ export class MainComponent implements OnInit {
     localStorage.removeItem(SystemConstants.CURRENT_USER);
     this._utilityService.navigate(UrlConstants.LOGIN);
   }
+  isAdmin(): boolean{
+    if(this.user.role ==='Admin'){
+      return true;
+    }else {
+      return false;
+    }
+  }
 }
