@@ -94,7 +94,7 @@ export class ProductComponent implements OnInit {
   }
   deleteItemConfirm(id: any) {
 
-    this._dataService.delete('/api/account', 'id', id).subscribe((response: any) => {
+    this._dataService.delete('/api/product', 'id', id).subscribe((response: any) => {
       if (response.Code === '200') {
         this.entity = response.Content;
         this._notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
