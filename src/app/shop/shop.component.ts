@@ -13,14 +13,20 @@ import { UrlConstants } from '../core/common/url.constants';
 export class ShopComponent implements OnInit {
 
   public user: LoggedInUser;
-  constructor(private _utilityService: UtilityService,private _authenService:AuthenService) { }
+  constructor(private _utilityService: UtilityService,private _authenService:AuthenService) {
+   }
 
   ngOnInit(): void {
-    
+    this.user = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
   }
   logout(){
     localStorage.removeItem(SystemConstants.CURRENT_USER);
-    this._utilityService.navigate(UrlConstants.SHOP);
+    this._utilityService.navigate(UrlConstants.LOGIN);
   }
-
+  IsAuthenticatedCustomer(): boolean{
+    return this._authenService.isUserAuthenticated();
+  }
+  logIn(){
+    this._utilityService.navigate(UrlConstants.LOGIN);
+  }
 }
