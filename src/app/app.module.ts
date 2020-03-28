@@ -7,13 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './core/guards/auth.guard';
 import { PaginationModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { ShopComponent } from './shop/shop.component';
 import { ModGuard } from './core/guards/mod.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShopComponent
   ],
   imports: [
     FormsModule,
