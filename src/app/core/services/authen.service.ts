@@ -58,6 +58,7 @@ export class AuthenService {
 
   isUserAuthenticated(): boolean {
     let user = localStorage.getItem(SystemConstants.CURRENT_USER);
+    console.log(user);
     if (user != null) {
       return true;
     } else {
@@ -66,7 +67,7 @@ export class AuthenService {
   }
   getLoggedInUser(): LoggedInUser {
     let user: LoggedInUser;
-    if (this.isUserAuthenticated) {
+    if (this.isUserAuthenticated()) {
       var userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
       user = {
         id: userData.id,
