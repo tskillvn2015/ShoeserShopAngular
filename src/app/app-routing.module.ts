@@ -5,7 +5,8 @@ import { ModGuard } from './core/guards/mod.guard';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'shop', pathMatch: 'full' },
+  { path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule) },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'main', loadChildren: () => import('./main/main.module').then(m => m.MainModule) ,canActivate:[ModGuard]},
 ];
