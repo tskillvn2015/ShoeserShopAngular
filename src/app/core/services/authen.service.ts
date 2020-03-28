@@ -14,6 +14,14 @@ export class AuthenService {
   private user: LoggedInUser;
   constructor(private _http: HttpClient, private _notificationService: NotificationService) { }
 
+  private extractData(res: Response) {
+    let body = res;
+    return body || {};
+  }
+  login(uri: string, data?: any){
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.post(SystemConstants.BASE_API + uri, data, { headers: headers }).pipe(map(this.extractData));
+  }
   logIn(username: string, password: string) {
     const body = {
       username: encodeURIComponent(username),
@@ -66,7 +74,6 @@ export class AuthenService {
         role: userData.role,
         token: userData.token
       };
-      console.log(user);
       return user;
     }
     return null;

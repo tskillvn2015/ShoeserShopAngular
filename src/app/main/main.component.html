@@ -27,13 +27,13 @@
             <ul class="nav side-menu">
               <li><a><i class="fa fa-home"></i> Trang chủ</a>
               </li>
-              <li><a><i class="fa fa-desktop"></i> Hệ thống <span class="fa fa-chevron-down"></span></a>
+              <li *ngIf="isAdmin()"><a><i class="fa fa-desktop"></i> Hệ thống <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a routerLink="/main/account/index" routerLinkActive="active">Người dùng</a></li>
                   <li><a routerLink="/main/error/index" routerLinkActive="active">Lỗi</a></li>
                 </ul>
               </li>
-              <li><a><i class="fa fa-chevron-down"></i> Sản phẩm <span class="fa fa-chevron-down"></span></a>
+              <li ><a><i class="fa fa-chevron-down"></i> Sản phẩm <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a routerLink="/main/product-category/index" routerLinkActive="active">Danh mục</a></li>
                   <li><a routerLink="/main/product/index" routerLinkActive="active">Sản phẩm</a></li>
