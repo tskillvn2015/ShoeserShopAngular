@@ -54,7 +54,15 @@ export class LoginComponent implements OnInit {
         if (this.user && this.user.token) {
           localStorage.removeItem(SystemConstants.CURRENT_USER);
           localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(this.user));
-          this.router.navigate([UrlConstants.HOME]);
+          if(this.user.role === 'Admin' || this.user.role ==='Moderator')
+            this.router.navigate([UrlConstants.HOME]);
+          else if(this.user.role ==='Customer'){
+            this.router.navigate([UrlConstants.SHOP]);
+          }else{
+            this._notificationService.printErrorMessage("your role is not valid");
+            this.loading=false;
+          }
+          
         } else {
           this._notificationService.printErrorMessage("token is not init");
           this.loading=false;
