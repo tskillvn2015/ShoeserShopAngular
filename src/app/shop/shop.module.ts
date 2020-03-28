@@ -4,7 +4,7 @@ import { ShopComponent } from './shop.component';
 import { AuthenService } from '../core/services/authen.service';
 import { UtilityService } from '../core/services/utility.service';
 import { shopRoutes } from './shop.route';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeModule } from './home/home.module';
 
 

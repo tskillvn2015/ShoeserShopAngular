@@ -9,7 +9,7 @@
                 <div class="clearfix"></div>
 
                 <!-- menu profile quick info -->
-                <div class="profile clearfix" *ngIf="user.id">
+                <div class="profile clearfix" *ngIf="IsAuthenticatedCustomer()">
                     <div class="profile_info">
                         <span>Welcome,</span>
                         <h2>{{user.username}}</h2>
@@ -64,7 +64,7 @@
                     </div>
 
                     <ul class="nav navbar-nav navbar-right" >
-                        <li class="" *ngIf="user.id">
+                        <li class="" *ngIf="IsAuthenticatedCustomer()">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                 aria-expanded="false">
                                 <img src="images/img.jpg" alt="">{{user.username}}
@@ -83,6 +83,7 @@
                                 </li>
                             </ul>
                         </li>
+                        <li *ngIf="IsAuthenticatedCustomer() == false"><a routerLink="/login" routerLinkActive="active">Login</a></li>
 
                     </ul>
                 </nav>

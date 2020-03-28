@@ -5,9 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const homeRoutes: Routes = [
   //localhost:4200/main/user
- { path: '', redirectTo: 'home', pathMatch: 'full' },
+ { path: '', redirectTo: 'index', pathMatch: 'full' },
   //localhost:4200/main/home/index
- { path: 'home', redirectTo: 'index' },
  { path: 'index', component: HomeComponent}
 ]
 
