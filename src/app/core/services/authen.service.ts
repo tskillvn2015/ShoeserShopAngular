@@ -58,7 +58,6 @@ export class AuthenService {
 
   isUserAuthenticated(): boolean {
     let user = localStorage.getItem(SystemConstants.CURRENT_USER);
-    console.log(user);
     if (user != null) {
       return true;
     } else {

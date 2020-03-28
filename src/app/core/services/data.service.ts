@@ -13,24 +13,27 @@ import { Observable, from } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  constructor(private _http: HttpClient, private _router: Router, private _authenService: AuthenService, private _notificationService : NotificationService
-    , private _utilityService :UtilityService) {
-     }
+  constructor(private _http: HttpClient, private _router: Router, private _authenService: AuthenService, private _notificationService: NotificationService
+    , private _utilityService: UtilityService) {
+  }
 
   get(uri: string) {
-    let headers = new HttpHeaders({'Content-Type': 'application/json','Authorization': 'Bearer' + this._authenService.getLoggedInUser().token});
+    let headers: HttpHeaders;
+    if (this._authenService.getLoggedInUser() == null)
+      headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    else headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer' + this._authenService.getLoggedInUser().token });
     return this._http.get(SystemConstants.BASE_API + uri, { headers: headers }).pipe(map(this.extractData));
   }
   post(uri: string, data?: any) {
-    let headers = new HttpHeaders({'Content-Type': 'application/json','Authorization': 'Bearer' + this._authenService.getLoggedInUser().token});
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer' + this._authenService.getLoggedInUser().token });
     return this._http.post(SystemConstants.BASE_API + uri, data, { headers: headers }).pipe(map(this.extractData));
   }
   put(uri: string, data?: any) {
-    let headers = new HttpHeaders({'Content-Type': 'application/json','Authorization': 'Bearer' + this._authenService.getLoggedInUser().token});
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer' + this._authenService.getLoggedInUser().token });
     return this._http.put(SystemConstants.BASE_API + uri, data, { headers: headers }).pipe(map(this.extractData));
   }
   delete(uri: string, key: string, id: string) {
-    let headers = new HttpHeaders({'Content-Type': 'application/json','Authorization': 'Bearer' + this._authenService.getLoggedInUser().token});
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer' + this._authenService.getLoggedInUser().token });
     return this._http.delete(SystemConstants.BASE_API + uri + "/?" + key + "=" + id, { headers: headers }).pipe(map(this.extractData));
   }
   postFile(uri: string, data?: any) {
