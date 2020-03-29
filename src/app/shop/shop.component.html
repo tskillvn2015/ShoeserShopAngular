@@ -25,10 +25,8 @@
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> Trang chủ</a>
+                            <li><a routerLink="/shop"><i class="fa fa-home"></i> Trang chủ</a>
                             </li>
-
-
                         </ul>
                     </div>
 
@@ -47,7 +45,7 @@
                     <a data-toggle="tooltip" data-placement="top" title="Lock">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="#" (click)="logout()">
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="#" (click)="logout()" *ngIf="IsAuthenticatedCustomer()">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -83,6 +81,7 @@
                                 </li>
                             </ul>
                         </li>
+                        <li *ngIf="IsAuthenticatedMod()"><a routerLink="/main/home" routerLinkActive="active">Manager</a></li>
                         <li *ngIf="IsAuthenticatedCustomer() == false"><a routerLink="/login" routerLinkActive="active">Login</a></li>
 
                     </ul>

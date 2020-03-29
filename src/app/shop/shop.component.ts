@@ -26,6 +26,15 @@ export class ShopComponent implements OnInit {
   IsAuthenticatedCustomer(): boolean{
     return this._authenService.isUserAuthenticated();
   }
+  IsAuthenticatedMod(): boolean{
+    if(this._authenService.isUserAuthenticated()){
+      if(this._authenService.isModAuthenticated()){
+        return true;
+      }
+    }
+    return false;
+  }
+
   logIn(){
     this._utilityService.navigate(UrlConstants.LOGIN);
   }
