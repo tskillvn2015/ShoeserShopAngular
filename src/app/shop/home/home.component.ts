@@ -4,6 +4,7 @@ import { UrlConstants } from 'src/app/core/common/url.constants';
 import { ModalDirective } from 'ngx-bootstrap';
 import { DataService } from 'src/app/core/services/data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageContstants } from 'src/app/core/common/message.constants';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
     this._utilityService.navigate(UrlConstants.SHOP);
     this.loadData();
   }
+
   loadData() {
     this._dataService.get('/api/products?Name=' + this.filter + '&PageIndex=' + this.pageIndex + '&PageSize=' + this.pageSize)
       .subscribe((response: any) => {
@@ -56,4 +58,18 @@ export class HomeComponent implements OnInit {
     this.pageIndex = event.page;
     this.loadData();
   }
+  addToCart(valid : boolean){
+    console.log(this.entity);
+    this._dataService.post('/api/order', JSON.stringify(this.entity))
+    .subscribe((response : any)=>{
+      if(response.Code === '200'){
+        this.loadData();
+        this.modalAddEdit.hide();
+        this._notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+      }else{
+        this._notificationService.printErrorMessage(response.Code + ' : ' + response.Message);
+      }
+    }, error => this._dataService.handleError(error));
+  }
+  
 }

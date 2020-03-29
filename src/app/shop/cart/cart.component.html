@@ -1,0 +1,28 @@
+<h3>Cart Info</h3>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let item of items">
+        <td text-align="center">
+            <a (click)="remove(item.product.id)">X</a>
+        </td>
+        <td>{{item.product.name}}</td>
+        <td>{{item.product.price}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.product.price * item.quantity}}</td>
+        <td>
+            <a (click) = "increaseQuantity(item.product.id)" >+</a>
+            <a (click) = "decreaseQuantity(item.product.id)" >-</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" text-align="right">Total</td>
+        <td>{{total}}</td>
+    </tr>
+</table>

@@ -49,7 +49,8 @@
                           <td>
                               <button class="btn btn-primary" (click)="showEditModal(product.Id)"><i
                                       class="fa fa-pencil-square-o"></i></button>
-                          </td>
+                                      <a [routerLink]="['/shop/cart/detail', { id:product.Id }]">Buy Now</a>
+                                    </td>
                       </tr>
                   </tbody>
               </table>
@@ -70,23 +71,21 @@
   <div class="modal-dialog modal-lg">
       <div class="modal-content">
           <div class="modal-header">
-              <h4 class="modal-title pull-left">Thêm/Sửa Sản Phẩm</h4>
+              <h4 class="modal-title pull-left">Thêm vào giỏ hàng</h4>
               <button type="button" class="close pull-right" (click)="modalAddEdit.hide()" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
           </div>
           <div class="modal-body">
-              <form class="form-horizontal form-label-left" novalidate #addEditForm="ngForm" *ngIf="entity">
+              <form class="form-horizontal form-label-left" novalidate #addEditForm="ngForm" 
+              (ngSubmit)="addToCart(addEditForm.valid)" *ngIf="entity">
 
-                  <div class="form-group">
+                    <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên</label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3"
                               name="name" class="form-control" readonly>
-                          <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)"
-                              class="text-danger">
-                              Bạn phải nhập tên ít nhất 3 ký tự
-                          </small>
+                          
                       </div>
                   </div>
 
@@ -95,10 +94,7 @@
                       <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="number" #size="ngModel" [(ngModel)]="entity.Size" required min="0" max="30" 
                               name="size" class="form-control" readonly>
-                          <small [hidden]="size.valid || (size.pristine && !addEditForm.submitted)"
-                              class="text-danger">
-                              Bạn phải nhập số size lớn hơn 0 - 30
-                          </small>
+                          
                       </div>
                   </div>
                   <div class="form-group">
@@ -108,26 +104,12 @@
                               name="description" class="form-control" readonly>
                       </div>
                   </div>
-                  <div class="form-group" >
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Quantity</label>
-                      <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="number" #quantity="ngModel" [(ngModel)]="entity.Quantity" required min="0" 
-                              name="quantity" class="form-control" readonly>
-                          <small [hidden]="quantity.valid || (quantity.pristine && !addEditForm.submitted)"
-                              class="text-danger">
-                              Bạn phải nhập số lượng lớn hơn 0
-                          </small>
-                      </div>
-                  </div>
+                  
                   <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">Xuất Sứ</label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="text" #manufacturer="ngModel" [(ngModel)]="entity.Manufacturer" required minlength="3"
                               name="manufacturer" class="form-control" readonly>
-                          <small [hidden]="manufacturer.valid || (manufacturer.pristine && !addEditForm.submitted)"
-                              class="text-danger">
-                              Bạn phải nhập tên xuất sứ ít nhất 3 ký tự
-                          </small>
                       </div>
                   </div>
                   <div class="form-group">
@@ -142,14 +124,23 @@
                               <option value="Dép Lào">Dép Lào</option>
                             </select>
                       </div>
-                      <div *ngIf="category.errors && (category.invalid || category.touched)">
-                          <small class="text-danger" *ngIf="category.invalid || category.touched" >please select a Category</small>
-                      </div>
                   </div>
+                  <div class="form-group" >
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Nhập số lượng mua</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="number" #quantity="ngModel" [(ngModel)]="entity.quantity" required min="0" 
+                            name="quantity" class="form-control" >
+                            <small [hidden]="quantity.valid || (quantity.pristine && !addEditForm.submitted)"
+                            class="text-danger">
+                            Bạn phải nhập số lượng lớn hơn 0
+                        </small>
+                    </div>
+                </div>
                   <div class="ln_solid"></div>
                   <div class="form-group">
                       <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           <button type="button" (click)="modalAddEdit.hide()" class="btn btn-primary">Hủy bỏ</button>
+                          <button type="submit" class="btn btn-success" [disabled]="!addEditForm.form.valid">Thêm vào giỏ hàng</button>
                       </div>
                   </div>
               </form>
