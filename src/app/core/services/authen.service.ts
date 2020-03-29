@@ -64,6 +64,14 @@ export class AuthenService {
       return false;
     }
   }
+  isModAuthenticated(): boolean{
+    let role = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER)).role;
+    if (role === 'Admin' || role ==='Moderator') {
+      return true;
+    } else {
+      return false;
+    }
+  }
   getLoggedInUser(): LoggedInUser {
     let user: LoggedInUser;
     if (this.isUserAuthenticated()) {
