@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { PaginationModule, ModalModule } from 'ngx-bootstrap';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { DataService } from 'src/app/core/services/data.service';
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {NgbModule,NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 const homeRoutes: Routes = [
   //localhost:4200/main/user
@@ -20,7 +22,9 @@ const homeRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(homeRoutes),
     FormsModule,
+    NgbAlertModule,
     PaginationModule,
+    NgbModule,
     ModalModule.forRoot(),
   ],
   providers: [DataService,NotificationService]
