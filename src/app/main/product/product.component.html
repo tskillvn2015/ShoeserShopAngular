@@ -38,6 +38,7 @@
                             <th>Size</th>
                             <th>Category</th>
                             <th>Description</th>
+                            <th>Price</th>
                             <th>Quantity</th>
                             <th></th>
                         </tr>
@@ -49,6 +50,7 @@
                             <td>{{product.Size}}</td>
                             <td>{{product.Category}}</td>
                             <td>{{product.Description}}</td>
+                            <td>{{product.Price}}</td>
                             <td>{{product.Quantity}}</td>
                             <td>
                                 <button class="btn btn-primary" (click)="showEditModal(product.Id)"><i
@@ -122,6 +124,17 @@
                             <input type="number" #quantity="ngModel" [(ngModel)]="entity.Quantity" required min="0" 
                                 name="quantity" class="form-control">
                             <small [hidden]="quantity.valid || (quantity.pristine && !addEditForm.submitted)"
+                                class="text-danger">
+                                Bạn phải nhập số lượng lớn hơn 0
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="number" #price="ngModel" [(ngModel)]="entity.Price" required min="0" 
+                                name="price" class="form-control">
+                            <small [hidden]="price.valid || (price.pristine && !addEditForm.submitted)"
                                 class="text-danger">
                                 Bạn phải nhập số lượng lớn hơn 0
                             </small>

@@ -47,6 +47,21 @@ export class DataService {
     return body || {};
   }
 
+  getOrderDetail(id) {
+    let headers: HttpHeaders;
+    var orders
+    if (this._authenService.getLoggedInUser() == null)
+      headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    else headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer' + this._authenService.getLoggedInUser().token });
+    this._http.get(SystemConstants.BASE_API + `/api/orderdetails?Id=${id}`, { headers: headers }).subscribe((response: any) => {
+      if (response.Code === '200') {
+        orders = response.Content.Items;
+      } else {
+        this._notificationService.printErrorMessage(response['Code'] + ' : ' + response['Message']);
+      };
+    });
+    return orders;
+  }
   public handleError(error: any) {
     if (error.status == 401) {
       localStorage.removeItem(SystemConstants.CURRENT_USER);

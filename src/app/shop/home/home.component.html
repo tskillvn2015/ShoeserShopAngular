@@ -58,6 +58,7 @@
                             <td>{{product.Quantity}}</td>
                             <td>
 
+<<<<<<< HEAD
                                 <button type="button" class="btn btn-outline-success"
                                     (click)="OnAddCart(product)"><b>Add to cart</b></button>
                             </td>
@@ -72,6 +73,45 @@
             </div>
         </div>
     </div>
+=======
+              <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Manufacturer</th>
+                          <th>Size</th>
+                          <th>Category</th>
+                          <th>Description</th>
+                          <th>Price</th>
+                          <th>Quantity</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let product of products">
+                          <td>{{product.Name}}</td>
+                          <td>{{product.Manufacturer}}</td>
+                          <td>{{product.Size}}</td>
+                          <td>{{product.Category}}</td>
+                          <td>{{product.Description}}</td>
+                          <td>{{product.Price}}</td>
+                          <td>{{product.Quantity}}</td>
+                          <td>
+                              <button class="btn btn-primary" (click)="showEditModal(product.Id)"><i
+                                      class="fa fa-pencil-square-o"></i></button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <div class="col-md-12">
+                  <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)"
+                      [totalItems]="totalRow" [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;"
+                      nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+              </div>
+          </div>
+      </div>
+  </div>
+>>>>>>> 648d13929d46c301989dc331ee6607d37c29a50c
 </div>
 
 
@@ -95,6 +135,7 @@
                             <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3"
                                 name="name" class="form-control" readonly>
 
+<<<<<<< HEAD
                         </div>
                     </div>
 
@@ -132,6 +173,69 @@
                                 <option value="Cao gót">Cao gót</option>
                                 <option value="Sandals">Sandals</option>
                                 <option value="Dép Lào">Dép Lào</option>
+=======
+                  <div class="form-group" >
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Size</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="number" #size="ngModel" [(ngModel)]="entity.Size" required min="0" max="30" 
+                              name="size" class="form-control" readonly>
+                          <small [hidden]="size.valid || (size.pristine && !addEditForm.submitted)"
+                              class="text-danger">
+                              Bạn phải nhập số size lớn hơn 0 - 30
+                          </small>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12" >
+                          <input type="text" #description="ngModel" [(ngModel)]="entity.Description" 
+                              name="description" class="form-control" readonly>
+                      </div>
+                  </div>
+                  <div class="form-group" >
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Quantity</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="number" #quantity="ngModel" [(ngModel)]="entity.Quantity" required min="0" 
+                              name="quantity" class="form-control" readonly>
+                          <small [hidden]="quantity.valid || (quantity.pristine && !addEditForm.submitted)"
+                              class="text-danger">
+                              Bạn phải nhập số lượng lớn hơn 0
+                          </small>
+                      </div>
+                  </div>
+                  <div class="form-group" >
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="number" #price="ngModel" [(ngModel)]="entity.Price" required min="0" 
+                            name="price" class="form-control">
+                        <small [hidden]="price.valid || (price.pristine && !addEditForm.submitted)"
+                            class="text-danger">
+                            Bạn phải nhập số lượng lớn hơn 0
+                        </small>
+                    </div>
+                </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Xuất Sứ</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" #manufacturer="ngModel" [(ngModel)]="entity.Manufacturer" required minlength="3"
+                              name="manufacturer" class="form-control" readonly>
+                          <small [hidden]="manufacturer.valid || (manufacturer.pristine && !addEditForm.submitted)"
+                              class="text-danger">
+                              Bạn phải nhập tên xuất sứ ít nhất 3 ký tự
+                          </small>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                          <select required class="browser-default custom-select" #category="ngModel" [(ngModel)]="entity.Category" name="category" class="form-control" disabled>
+                              <option value=""> Select Category</option>
+                              <option value="Giày Thể Thao">Giày Thể Thao</option>
+                              <option value="Sneaker">Sneaker</option>
+                              <option value="Cao gót">Cao gót</option>
+                              <option value="Sandals">Sandals</option>
+                              <option value="Dép Lào">Dép Lào</option>
+>>>>>>> 648d13929d46c301989dc331ee6607d37c29a50c
                             </select>
                         </div>
                     </div>
