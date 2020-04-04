@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class OrderComponent implements OnInit {
   public pageIndex: number = 1;
-  public pageSize: number = 2;
+  public pageSize: number = 8;
   public pageDisplay: number = 10;
   public totalRow: number;
   public filter: string = '';
