@@ -5,6 +5,7 @@ import {Routes,RouterModule}from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {NotificationService} from '../core/services/notification.service';
 import {AuthenService} from '../core/services/authen.service';
+import { ModalModule } from 'ngx-bootstrap';
 
 export const routers:Routes =[
   {path:'',component:LoginComponent}
@@ -16,6 +17,7 @@ export const routers:Routes =[
   imports: [
     CommonModule,
     FormsModule,
+    ModalModule.forRoot(),
     RouterModule.forChild(routers)
   ],
   providers:[NotificationService,AuthenService],

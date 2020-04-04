@@ -24,6 +24,10 @@ export class DataService {
     else headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this._authenService.getLoggedInUser().token });
     return this._http.get(SystemConstants.BASE_API + uri, { headers: headers }).pipe(map(this.extractData));
   }
+  register(uri: string, data?: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.post(SystemConstants.BASE_API + uri, data, { headers: headers }).pipe(map(this.extractData));
+  }
   post(uri: string, data?: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this._authenService.getLoggedInUser().token });
     return this._http.post(SystemConstants.BASE_API + uri, data, { headers: headers }).pipe(map(this.extractData));
