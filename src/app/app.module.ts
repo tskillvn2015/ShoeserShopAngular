@@ -21,6 +21,7 @@ import { ModGuard } from './core/guards/mod.guard';
     PaginationModule.forRoot()
   ],
   providers: [AuthGuard,ModGuard],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
